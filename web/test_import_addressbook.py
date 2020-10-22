@@ -2,22 +2,19 @@
 import os
 import shelve
 import time
-
-from pip._vendor.requests import cookies
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 
 
-class TestImportAddressBook():
-    def setup_method(self, method):
+class TestImportAddressBook:
+    def setup_method(self):
         options = Options()
         options.debugger_address = "127.0.0.1:9222"
         self.driver = webdriver.Chrome(options=options)
-        self.driver.implicitly_wait(5)
         self.login_weixin()
 
-    def teardown_method(self, method):
+    def teardown_method(self):
         self.driver.quit()
 
     def login_weixin(self):
@@ -83,4 +80,3 @@ class TestImportAddressBook():
         filename = self.driver.find_element(By.CSS_SELECTOR, ".ww_fileImporter_fileContainer_fileNames").text
         assert "妍妍通讯录.xlsx" == filename
         time.sleep(3)
-
